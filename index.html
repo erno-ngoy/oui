@@ -1,81 +1,102 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>😏 Message important</title>
+<meta charset="UTF-8">
+<title>😏 Message important</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #000;
-            color: white;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #000;
+    color: white;
+}
 
-        /* Fenêtre bloquante */
-        #popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
+/* Fenêtre bloquante */
+#popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
 
-        .box {
-            background: #111;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 90%;
-        }
+.box {
+    background: #111;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 90%;
+    animation: fadeIn 0.3s ease;
+}
 
-        button {
-            margin-top: 15px;
-            padding: 10px 25px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background: #00ff88;
-            color: black;
-            font-weight: bold;
-        }
+/* Animation NON */
+.shake {
+    animation: shake 0.3s;
+}
 
-        /* Contenu caché */
-        #content {
-            display: none;
-            text-align: center;
-            padding: 20px;
-        }
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
 
-        img {
-            width: 90%;
-            max-width: 300px;
-            margin: 10px;
-            border-radius: 10px;
-        }
-    </style>
+button {
+    margin: 10px;
+    padding: 10px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-yes {
+    background: #00ff88;
+    color: black;
+}
+
+.btn-no {
+    background: #ff4444;
+    color: white;
+}
+
+/* Contenu final */
+#content {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+img {
+    width: 90%;
+    max-width: 280px;
+    margin: 10px;
+    border-radius: 10px;
+}
+</style>
 </head>
 
 <body>
 
 <!-- POPUP -->
 <div id="popup">
-    <div class="box">
-        <h2>⚠️ Message important</h2>
-        <p>Tu es GAY ?<b></b><br>Mon pote?</p>
-        <button onclick="showContent()">OUI</button>
+    <div class="box" id="box">
+        <h2>⚠️ Question importante</h2>
+        <p>Tu es GAY?</p>
+
+        <button class="btn-yes" onclick="showContent()">OUI</button>
+        <button class="btn-no" onclick="refuse()">NON</button>
     </div>
 </div>
 
 <!-- CONTENU FINAL -->
 <div id="content">
-    <h1>😂 Je savais!</h1>
+    <h1>😂 Je savais !</h1>
 
     <img src="gorilla-middle-finger.gif">
     <img src="gorilla-middle-finger.gif">
@@ -85,10 +106,20 @@
 </div>
 
 <script>
-    function showContent() {
-        document.getElementById("popup").style.display = "none";
-        document.getElementById("content").style.display = "block";
-    }
+function showContent() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("content").style.display = "block";
+}
+
+function refuse() {
+    const box = document.getElementById("box");
+    box.classList.add("shake");
+
+    setTimeout(() => {
+        box.classList.remove("shake");
+        // le message reste affiché (réapparaît)
+    }, 300);
+}
 </script>
 
 </body>
